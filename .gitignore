@@ -1,0 +1,26 @@
+*
+!.gitignore
+!README.md
+
+# Client
+!minecraft/
+!minecraft/src/
+!minecraft/src/net/
+!minecraft/src/net/minecraft/
+!minecraft/src/net/minecraft/src/
+!minecraft/src/net/minecraft/src/mod_ChunkLoaderPlus.java
+!minecraft/src/net/minecraft/src/BlockChunkLoader.java
+!minecraft/src/net/minecraft/src/ChunkLoaderOverrides.java
+!minecraft/src/net/minecraft/src/ParticleSparkle.java
+!minecraft/src/net/minecraft/src/TileEntityMobSpawner.java
+
+# Server
+!minecraft_server/
+!minecraft_server/src/
+!minecraft_server/src/net/
+!minecraft_server/src/net/minecraft/
+!minecraft_server/src/net/minecraft/src/
+!minecraft_server/src/net/minecraft/src/mod_ChunkLoaderPlus.java
+!minecraft_server/src/net/minecraft/src/BlockChunkLoader.java
+!minecraft_server/src/net/minecraft/src/ChunkLoaderOverrides.java
+!minecraft_server/src/net/minecraft/src/TileEntityMobSpawner.java
