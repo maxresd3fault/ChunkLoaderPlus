@@ -48,11 +48,13 @@ public class BlockChunkLoader extends Block {
 		
 		for (Object obj : w.playerEntities) {
 			EntityPlayerMP player = (EntityPlayerMP) obj;
+			double dx = player.posX - (x + 0.5);
+			double dy = player.posY - (y + 0.5);
+			double dz = player.posZ - (z + 0.5);
 			
-			int playerChunkX = player.chunkCoordX;
-			int playerChunkZ = player.chunkCoordZ;
+			double distanceSq = dx * dx + dy * dy + dz * dz;
 			
-			if (playerChunkX == chunk.xPosition && playerChunkZ == chunk.zPosition) {
+			if (distanceSq <= 64) {
 				ModLoader.getMinecraftServerInstance().configManager.sendChatMessageToPlayer(player.username, "§a" + count + " loader(s) are loading the chunk at x: " + chunk.xPosition + ", z: " + chunk.zPosition);
 			}
 		}
@@ -78,11 +80,13 @@ public class BlockChunkLoader extends Block {
 		
 		for (Object obj : w.playerEntities) {
 			EntityPlayerMP player = (EntityPlayerMP) obj;
+			double dx = player.posX - (x + 0.5);
+			double dy = player.posY - (y + 0.5);
+			double dz = player.posZ - (z + 0.5);
 			
-			int playerChunkX = player.chunkCoordX;
-			int playerChunkZ = player.chunkCoordZ;
+			double distanceSq = dx * dx + dy * dy + dz * dz;
 			
-			if (playerChunkX == chunk.xPosition && playerChunkZ == chunk.zPosition) {
+			if (distanceSq <= 64) {
 				if (!messageCase) ModLoader.getMinecraftServerInstance().configManager.sendChatMessageToPlayer(player.username, "§4Unloading the chunk at x: " + chunk.xPosition + ", z: " + chunk.zPosition);
 				else if (messageCase) ModLoader.getMinecraftServerInstance().configManager.sendChatMessageToPlayer(player.username, "§e" + count + " loader(s) are loading the chunk at x: " + chunk.xPosition + ", z: " + chunk.zPosition);
 			}

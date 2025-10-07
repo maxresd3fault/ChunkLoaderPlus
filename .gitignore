@@ -1,6 +1,7 @@
 *
 !.gitignore
 !README.md
+!LICENSE.txt
 
 # Client
 !minecraft/
@@ -10,7 +11,6 @@
 !minecraft/src/net/minecraft/src/
 !minecraft/src/net/minecraft/src/mod_ChunkLoaderPlus.java
 !minecraft/src/net/minecraft/src/BlockChunkLoader.java
-!minecraft/src/net/minecraft/src/ChunkLoaderOverrides.java
 !minecraft/src/net/minecraft/src/ParticleSparkle.java
 !minecraft/src/net/minecraft/src/TileEntityMobSpawner.java
 

@@ -22,7 +22,7 @@ public class mod_ChunkLoaderPlus extends BaseModMp {
 	}
 	
 	public String Version() {
-		return "R10125";
+		return "R10625";
 	}
 	
 	public mod_ChunkLoaderPlus() {
@@ -53,6 +53,15 @@ public class mod_ChunkLoaderPlus extends BaseModMp {
 		ModLoader.SetInGameHook(this, true, true);
 	}
 	
+    @Override
+    public void ModsLoaded() {
+        try {
+            Class.forName("mod_MaxresBase");
+        } catch (Exception e) {
+        	log("MaxresBase not installed! This mod will not function.", 2);
+        }
+    }
+    
 	@Override
 	public void OnTickInGame(MinecraftServer server) {
 		if(!isLoaded) {
@@ -61,7 +70,6 @@ public class mod_ChunkLoaderPlus extends BaseModMp {
 			loadAllChunksFromNBT();
 			ChunkProviderServer cps = worldServer.chunkProviderServer;
 			ChunkLoaderOverrides.hookChunkUnload(cps);
-			ChunkLoaderOverrides.injectDoRandomUpdateTicks(worldServer);
 			worldServer.chunkProviderServer.chunkLoadOverride = false;
 			isLoaded = true;
 		}

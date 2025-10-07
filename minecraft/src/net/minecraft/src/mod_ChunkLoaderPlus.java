@@ -18,6 +18,7 @@ public class mod_ChunkLoaderPlus extends BaseModMp {
 	public static int partTex;
 	public static Block chunkLoader;
 	private Configuration config;
+	public static boolean maxresBaseFound = false;
 	public static World lastWorld = null;
 	
 	public String Name() {
@@ -25,7 +26,7 @@ public class mod_ChunkLoaderPlus extends BaseModMp {
 	}
 	
 	public String Version() {
-		return "R10125";
+		return "R10625";
 	}
 	
 	public String Description() {
@@ -64,14 +65,24 @@ public class mod_ChunkLoaderPlus extends BaseModMp {
 		ModLoader.SetInGameHook(this, true, true);
 	}
 	
+    @Override
+    public void ModsLoaded() {
+        try {
+            Class.forName("mod_MaxresBase");
+            maxresBaseFound = true;
+        } catch (Exception e) {
+        	log("MaxresBase not installed! This mod will not function.", 2);
+        }
+    }
+	
 	@Override
 	public boolean OnTickInGame(Minecraft client) {
 		if (!client.theWorld.multiplayerWorld && (lastWorld != client.theWorld)) {
 			chunkRefCounts.clear();
 			loadAllChunksFromNBT();
-			ChunkLoaderOverrides.injectUpdateBlocksAndPlayCaveSounds(client.theWorld);
+			if (!maxresBaseFound) client.thePlayer.addChatMessage("§4[ChunkLoader+]: Please install MaxresBase!");
+			lastWorld = client.theWorld;
 		}
-		lastWorld = client.theWorld;
 		return true;
 	}
 	

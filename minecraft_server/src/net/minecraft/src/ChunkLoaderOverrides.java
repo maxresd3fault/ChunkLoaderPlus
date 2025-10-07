@@ -38,28 +38,6 @@ public class ChunkLoaderOverrides {
 		}
 	}
 	
-	public static void injectDoRandomUpdateTicks(WorldServer world) {
-		try {
-			Field activeChunkSetField = World.class.getDeclaredField("P"); // activeChunkSet
-			activeChunkSetField.setAccessible(true);
-			
-			Set<ChunkCoordIntPair> proxySet = new HashSet<ChunkCoordIntPair>() {
-				@Override
-				public void clear() {
-					super.clear();
-					
-					for (Chunk c : mod_ChunkLoaderPlus.chunkRefCounts.keySet()) {
-						this.add(new ChunkCoordIntPair(c.xPosition, c.zPosition));
-					}
-				}
-			};
-			
-			activeChunkSetField.set(world, proxySet);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
 	public static int getX(int chunkKey) {
 		return (chunkKey >> 16) & 0x7FFF | ((chunkKey & 0x80000000) != 0 ? -0x8000 : 0);
 	}
