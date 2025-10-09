@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
 
 import forge.Configuration;
 import forge.Property;
@@ -16,10 +17,6 @@ public class mod_ChunkLoaderPlus extends BaseModMp {
 	public static Block chunkLoader;
 	public static boolean isLoaded = false;
 	private Configuration config;
-	
-	public String Name() {
-		return "ChunkLoader+";
-	}
 	
 	public String Version() {
 		return "R10625";
@@ -34,18 +31,15 @@ public class mod_ChunkLoaderPlus extends BaseModMp {
 			Property chunkLoaderID = config.getOrCreateBlockIdProperty("chunkLoaderID", 166);
 			Property disableChunkLoaderCrafting = config.getOrCreateBooleanProperty("disableChunkLoaderCrafting", 0, false);
 			
-			if (Integer.parseInt(chunkLoaderID.value) != 0) {
-				chunkLoader = (new BlockChunkLoader(Integer.parseInt(chunkLoaderID.value))).setBlockName("chunkLoader");
-				ModLoader.RegisterBlock(chunkLoader);
-			} else {
-				log("Invalid value in config: " + chunkLoaderID.value, 2);
-			}
+			chunkLoader = (new BlockChunkLoader(Integer.parseInt(chunkLoaderID.value))).setBlockName("chunkLoader");
+			ModLoader.RegisterBlock(chunkLoader);
+			
 			if (!Boolean.parseBoolean(disableChunkLoaderCrafting.value)) {
 				ModLoader.AddRecipe(new ItemStack(chunkLoader, 1), new Object[] {
 					"O#O", "#R#", "O#O", Character.valueOf('O'), Block.obsidian, Character.valueOf('#'), Item.diamond, Character.valueOf('R'), Item.redstone
 				});
 			} else {
-				log("Disabling crafting of Chunk Loaders!", 0);
+				log("Disabling crafting of Chunk Loaders!", Level.INFO);
 			}
 		} finally {
 			config.save();
@@ -58,7 +52,7 @@ public class mod_ChunkLoaderPlus extends BaseModMp {
         try {
             Class.forName("mod_MaxresBase");
         } catch (Exception e) {
-        	log("MaxresBase not installed! This mod will not function.", 2);
+        	log("MaxresBase not installed! This mod will not function.", Level.SEVERE);
         }
     }
     
@@ -216,13 +210,7 @@ public class mod_ChunkLoaderPlus extends BaseModMp {
 		}
 	}
 	
-	public static void log(String str, int messageCase) {
-		if (messageCase == 0) {
-			System.out.println("[ChunkLoader+]: " + str);
-		} else if (messageCase == 1) {
-			System.out.println("[ChunkLoader+][WARN]: " + str);
-		} else if (messageCase == 2) {
-			System.out.println("[ChunkLoader+][FATAL ERROR]: " + str);
-		}
+	public static void log(String str, Level level) {
+		ModLoader.getLogger().log(level, "[ChunkLoader+]: " + str);
 	}
 }

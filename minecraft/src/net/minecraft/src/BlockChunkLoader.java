@@ -1,6 +1,7 @@
 package net.minecraft.src;
 
 import java.util.Random;
+import java.util.logging.Level;
 
 public class BlockChunkLoader extends Block {
 	public static final Material chunkLoaderMaterial = new Material(MapColor.ironColor).setImmovableMobility();
@@ -47,7 +48,7 @@ public class BlockChunkLoader extends Block {
 		mod_ChunkLoaderPlus.saveChunkToNBT(chunk);
 		mod_ChunkLoaderPlus.chunkRefCounts.put(chunk, count);
 		chunk.isChunkLoaded = true;
-		mod_ChunkLoaderPlus.log(count + " loader(s) are loading the chunk at x: " + chunk.xPosition + ", z: " + chunk.zPosition, 0);
+		mod_ChunkLoaderPlus.log(count + " loader(s) are loading the chunk at x: " + chunk.xPosition + ", z: " + chunk.zPosition, Level.INFO);
 		ModLoader.getMinecraftInstance().thePlayer.addChatMessage("§a" + count + " loader(s) are loading the chunk at x: " + chunk.xPosition + ", z: " + chunk.zPosition);
 	}
 	
@@ -63,10 +64,10 @@ public class BlockChunkLoader extends Block {
 			chunk.isChunkLoaded = false;
 			mod_ChunkLoaderPlus.deleteChunkFromNBT(chunk);
 			mod_ChunkLoaderPlus.chunkRefCounts.remove(chunk);
-			mod_ChunkLoaderPlus.log("Unloading the chunk at x: " + chunk.xPosition + ", z: " + chunk.zPosition, 0);
+			mod_ChunkLoaderPlus.log("Unloading the chunk at x: " + chunk.xPosition + ", z: " + chunk.zPosition, Level.INFO);
 		} else {
 			mod_ChunkLoaderPlus.chunkRefCounts.put(chunk, count);
-			mod_ChunkLoaderPlus.log(count + " loader(s) are loading the chunk at x: " + chunk.xPosition + ", z: " + chunk.zPosition, 0);
+			mod_ChunkLoaderPlus.log(count + " loader(s) are loading the chunk at x: " + chunk.xPosition + ", z: " + chunk.zPosition, Level.INFO);
 			messageCase = true;
 		}
 		

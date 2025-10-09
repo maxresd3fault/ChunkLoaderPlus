@@ -3,6 +3,7 @@ package net.minecraft.src;
 import java.lang.reflect.Field;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Level;
 
 public class ChunkLoaderOverrides {
 	@SuppressWarnings("unchecked")
@@ -21,7 +22,7 @@ public class ChunkLoaderOverrides {
 					
 					for (Chunk c: mod_ChunkLoaderPlus.chunkRefCounts.keySet()) {
 						if (c.xPosition == chunkX && c.zPosition == chunkZ) {
-							mod_ChunkLoaderPlus.log("Minecraft tried to unload chunk at x: " + chunkX + ", z: " + chunkZ + ", overriding!", 0);
+							mod_ChunkLoaderPlus.log("Minecraft tried to unload chunk at x: " + chunkX + ", z: " + chunkZ + ", overriding!", Level.INFO);
 							return false;
 						}
 					}

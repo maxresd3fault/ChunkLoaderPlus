@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
 
 import forge.Configuration;
 import forge.Property;
@@ -49,16 +50,12 @@ public class mod_ChunkLoaderPlus extends BaseModMp {
 			config.load();
 			Property chunkLoaderID = config.getOrCreateBlockIdProperty("chunkLoaderID", 166);
 			
-			if (Integer.parseInt(chunkLoaderID.value) != 0) {
-				chunkLoader = (new BlockChunkLoader(Integer.parseInt(chunkLoaderID.value)).setBlockName("chunkLoader"));
-				ModLoader.AddName(chunkLoader, "Chunk Loader");
-				ModLoader.RegisterBlock(chunkLoader);
-				ModLoader.AddRecipe(new ItemStack(chunkLoader, 1), new Object[] {
-					"O#O", "#R#", "O#O", Character.valueOf('O'), Block.obsidian, Character.valueOf('#'), Item.diamond, Character.valueOf('R'), Item.redstone
-				});
-			} else {
-				log("Invalid value in config: " + chunkLoaderID.value, 2);
-			}
+			chunkLoader = (new BlockChunkLoader(Integer.parseInt(chunkLoaderID.value)).setBlockName("chunkLoader"));
+			ModLoader.AddName(chunkLoader, "Chunk Loader");
+			ModLoader.RegisterBlock(chunkLoader);
+			ModLoader.AddRecipe(new ItemStack(chunkLoader, 1), new Object[] {
+				"O#O", "#R#", "O#O", Character.valueOf('O'), Block.obsidian, Character.valueOf('#'), Item.diamond, Character.valueOf('R'), Item.redstone
+			});
 		} finally {
 			config.save();
 		}
@@ -71,7 +68,7 @@ public class mod_ChunkLoaderPlus extends BaseModMp {
             Class.forName("mod_MaxresBase");
             maxresBaseFound = true;
         } catch (Exception e) {
-        	log("MaxresBase not installed! This mod will not function.", 2);
+        	log("MaxresBase not installed! This mod will not function.", Level.SEVERE);
         }
     }
 	
@@ -224,13 +221,7 @@ public class mod_ChunkLoaderPlus extends BaseModMp {
 		}
 	}
 	
-	public static void log(String str, int messageCase) {
-		if (messageCase == 0) {
-			System.out.println("[ChunkLoader+]: " + str);
-		} else if (messageCase == 1) {
-			System.out.println("[ChunkLoader+][WARN]: " + str);
-		} else if (messageCase == 2) {
-			System.out.println("[ChunkLoader+][FATAL ERROR]: " + str);
-		}
+	public static void log(String str, Level level) {
+		ModLoader.getLogger().log(level, "[ChunkLoader+]: " + str);
 	}
 }

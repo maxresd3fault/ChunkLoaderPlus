@@ -1,6 +1,7 @@
 package net.minecraft.src;
 
 import java.util.Random;
+import java.util.logging.Level;
 
 public class BlockChunkLoader extends Block {
 	public static final Material chunkLoaderMaterial = new Material(MapColor.field_28193_h).setImmovableMobility();
@@ -44,7 +45,7 @@ public class BlockChunkLoader extends Block {
 		int count = mod_ChunkLoaderPlus.chunkRefCounts.getOrDefault(chunk, 0) + 1;
 		mod_ChunkLoaderPlus.saveChunkToNBT(chunk);
 		mod_ChunkLoaderPlus.chunkRefCounts.put(chunk, count);
-		mod_ChunkLoaderPlus.log(count + " loader(s) are loading the chunk at x: " + chunk.xPosition + ", z: " + chunk.zPosition, 0);
+		mod_ChunkLoaderPlus.log(count + " loader(s) are loading the chunk at x: " + chunk.xPosition + ", z: " + chunk.zPosition, Level.INFO);
 		
 		for (Object obj : w.playerEntities) {
 			EntityPlayerMP player = (EntityPlayerMP) obj;
@@ -71,10 +72,10 @@ public class BlockChunkLoader extends Block {
 		if (count <= 0) {
 			mod_ChunkLoaderPlus.deleteChunkFromNBT(chunk);
 			mod_ChunkLoaderPlus.chunkRefCounts.remove(chunk);
-			mod_ChunkLoaderPlus.log("Unloading the chunk at x: " + chunk.xPosition + ", z: " + chunk.zPosition, 0);
+			mod_ChunkLoaderPlus.log("Unloading the chunk at x: " + chunk.xPosition + ", z: " + chunk.zPosition, Level.INFO);
 		} else {
 			mod_ChunkLoaderPlus.chunkRefCounts.put(chunk, count);
-			mod_ChunkLoaderPlus.log(count + " loader(s) are loading the chunk at x: " + chunk.xPosition + ", z: " + chunk.zPosition, 0);
+			mod_ChunkLoaderPlus.log(count + " loader(s) are loading the chunk at x: " + chunk.xPosition + ", z: " + chunk.zPosition, Level.INFO);
 			messageCase = true;
 		}
 		
