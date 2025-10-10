@@ -31,7 +31,7 @@ public class mod_ChunkLoaderPlus extends BaseModMp {
 	}
 	
 	public String Version() {
-		return "R10625";
+		return "R101025";
 	}
 	
 	public String Description() {
