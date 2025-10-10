@@ -15,7 +15,10 @@ public class mod_ChunkLoaderPlus extends BaseModMp {
 	public static final Map<Chunk, Integer> chunkRefCounts = new HashMap<Chunk, Integer>();
 	
 	public static Block chunkLoader;
+	
 	public static boolean isLoaded = false;
+	protected static boolean TileEntityMobSpawnerClassInstalled = true;
+	
 	private Configuration config;
 	
 	public String Version() {
@@ -49,6 +52,14 @@ public class mod_ChunkLoaderPlus extends BaseModMp {
 	
     @Override
     public void ModsLoaded() {
+    	try {
+			Class.forName("bx");
+			
+			if (!TileEntityMobSpawnerClassInstalled) {
+				log("You have not injected bx.class, mob spawners will not work in loaded chunks with no players.", Level.WARNING);
+			}
+		} catch (Exception e) {
+		}
         try {
             Class.forName("mod_MaxresBase");
         } catch (Exception e) {

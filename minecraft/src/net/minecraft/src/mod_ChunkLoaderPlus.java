@@ -17,10 +17,14 @@ public class mod_ChunkLoaderPlus extends BaseModMp {
 	public static int clOff;
 	public static int clOn;
 	public static int partTex;
+	
 	public static Block chunkLoader;
-	private Configuration config;
-	public static boolean maxresBaseFound = false;
+
 	public static World lastWorld = null;
+	public static boolean maxresBaseFound = false;
+	protected static boolean TileEntityMobSpawnerClassInstalled = false;
+	
+	private Configuration config;
 	
 	public String Name() {
 		return "ChunkLoader+";
@@ -64,6 +68,14 @@ public class mod_ChunkLoaderPlus extends BaseModMp {
 	
     @Override
     public void ModsLoaded() {
+    	try {
+			Class.forName("cy");
+			
+			if (!TileEntityMobSpawnerClassInstalled) {
+				log("You have not injected cy.class, mob spawners will not work in loaded chunks with no players.", Level.WARNING);
+			}
+		} catch (Exception e) {
+		}
         try {
             Class.forName("mod_MaxresBase");
             maxresBaseFound = true;

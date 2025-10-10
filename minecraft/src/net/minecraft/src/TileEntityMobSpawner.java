@@ -1,6 +1,10 @@
 package net.minecraft.src;
 
 public class TileEntityMobSpawner extends TileEntity {
+	static {
+		mod_ChunkLoaderPlus.TileEntityMobSpawnerClassInstalled = true;
+	}
+	
 	public int delay = -1;
 	private String mobID = "Pig";
 	public double yaw;
